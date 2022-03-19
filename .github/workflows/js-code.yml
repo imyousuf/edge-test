@@ -1,0 +1,19 @@
+name: JS-Code CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - 'js-code/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Publish
+        uses: cloudflare/wrangler-action@1.3.0
+        with:
+          apiToken: ${{ secrets.CF_WORKER_API_TOKEN }}
+          workingDirectory: 'js-code'
