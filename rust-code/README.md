@@ -39,3 +39,6 @@ Read more about this on the [`workers-rs` project README](https://github.com/clo
 If you have any problems with the `worker` crate, please open an issue on the upstream project 
 issue tracker on the [`workers-rs` repository](https://github.com/cloudflare/workers-rs).
 
+## Addition on top of wrangler
+
+- Need to install Cargo
