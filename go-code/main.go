@@ -22,5 +22,5 @@ func main() {
 
 func helloWorld(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	w.WriteHeader(200)
-	fmt.Fprint(w, "Hello World from Go!")
+	fmt.Fprint(w, "Hello World from GoLang!")
 }
