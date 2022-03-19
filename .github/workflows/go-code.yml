@@ -1,0 +1,38 @@
+name: Golang-Code CI/CD
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+    - 'go-code/**'
+
+jobs:
+  container-build-push:
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - uses: actions/checkout@v3
+    - id: 'auth'
+      name: 'Authenticate to Google Cloud'
+      uses: 'google-github-actions/auth@v0'
+      with:
+        workload_identity_provider: projects/652939366342/locations/global/workloadIdentityPools/edge-pool/providers/my-provider
+        service_account: edge-test@test-gce.iam.gserviceaccount.com
+        token_format: 'access_token'
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v1
+    - uses: 'docker/login-action@v1'
+      with:
+        registry: 'gcr.io'
+        username: 'oauth2accesstoken'
+        password: '${{ steps.auth.outputs.access_token }}'
+    - name: Build, Tag, Push Image
+      run: |
+        docker build -t gcr.io/test-gce/go-code:latest -f Dockerfile .
+        docker push gcr.io/test-gce/go-code:latest
+      working-directory: ./go-code
