@@ -41,4 +41,4 @@ issue tracker on the [`workers-rs` repository](https://github.com/cloudflare/wor
 
 ## Addition on top of wrangler
 
-- Need to install Cargo
+- Need to install Cargo using snap
